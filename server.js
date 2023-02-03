@@ -2,59 +2,59 @@
 const express = require("express")
 
 //initialize the express app
-const app = express();
+const app = express()
 
 //configure application settings
-const port = 3000;
+const port = 3000
+
+const calc = []
 
 //mount routes
 
-app.get("/", function(req, res){
-	res.send("Express Calculator")
-});
+app.get('/calc/:num1/:num2' ,  function(req, res){
+	const num1 = parseInt(req.params.num1)
+	const num2 = parseInt(req.params.num2)
+	const sum = num1 + num2
+	const phrase = `The sum is ${sum}`
+	res.send(phrase)
 
-app.get("/calcquery/:num1/:num2", function(req, res){  // calculator code
-  const operator = req.params.operator
-  const num1 = parseInt(req.params.num1);
-  const num2 = parseInt(req.params.num2);
-  var result;
+})
 
-if (req.query.operation ==="add"){
-	res.send( "Result is ${sum}");
-} else if (req.query.operation === "subtract") {
-	res.send("Result is ${difference}");
-}if (req.query.operation ==="divide"){
-	res.send( "Result is ${divide}");
-} if (req.query.operation ==="multiply"){
-	res.send( "Result is ${product}");
-}if (req.query.operation ==="power"){
-	res.send( "Result is ${power}");
-}else {
-	res.send ("no operation");
-}
+app.get('/someroute',function(req, res){
+    console.log("req.query: ", req.query)
+    res.send("someroute accessed")
+  })
 
-  function add(a, b){
-		return a + b
+app.get('/calcquery/:num1/:num2' ,  (req, res) => {
+	const num1 = parseInt(req.params.num1)
+	const num2 = parseInt(req.params.num2)
+	const operation = req.query.operation
+
+	if ( operation === 'add') {
+		const sum = num1+num2
+		res.send(`The sum is ${sum}`);
+	}
+	else if( operation === 'subtract'){
+		const subtract = num1 - num2;
+		res.send(`The answer is ${subtract}`)
+	}
+	else if (operation === 'divide'){
+		const divide = num1 / num2
+		res.send(`The answe is ${divide}`)
+	}
+	else if (operation === 'exponents'){
+		const exponents = Math.pow(num1,num2);
+		res.send(`The answer is ${exponents}`)
+	}
+	else {
+		res.send ('There is no operation')
 	}
 
-	function subtract(a, b){
-		return a - b
-	}
-
-	function multiply(a, b){
-		return a * b
-	}
-
-	function divide(a, b){
-		return a / b
-	}
-
-	res.json(result);
-});
+})
 
 
 //tell the application to listen for requests on a dedicated port
 
-app.listen(port, function(){
-  console.log(`Express is listening on port:` , port)
-});
+app.listen(port, () => {
+	console.log(`Express is listening on port ${port}`);
+  })
