@@ -38,6 +38,10 @@ app.get('/calcquery/:num1/:num2' ,  (req, res) => {
 		const subtract = num1 - num2;
 		res.send(`The answer is ${subtract}`)
 	}
+		else if( operation === 'multiply'){
+		const multiply = num1 * num2;
+		res.send(`The answer is ${multiply}`)
+	}
 	else if (operation === 'divide'){
 		const divide = num1 / num2
 		res.send(`The answe is ${divide}`)
